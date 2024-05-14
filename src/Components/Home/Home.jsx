@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>FreshCart home</title>
+        <title>home</title>
       </Helmet>
       <MainSlider></MainSlider>
       <CategorySlider></CategorySlider>
