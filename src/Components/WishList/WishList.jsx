@@ -68,18 +68,18 @@ export default function WishList() {
                                 </Link>
                             </div>
                             <div className="col-md-10 my-2 my-md-0">
-                                <div className="d-flex justify-content-between align-items-center">
+                                <div className="d-md-flex justify-content-between align-items-center">
                                     <div>
                                         <Link to={`/productdetails/${wish.productId._id}`}>
-                                            <h3 className='h6 fw-semibold'>{wish.productId.name.split(' ').slice(0, 3).join(' ')}</h3>
+                                            <h3 className='h6 fw-semibold'>{wish.productId.name.split(' ').slice(0, 2).join(' ')}</h3>
                                             <h6 className='mb-3 fw-semibold'>Price : <span className='fw-bolder text-main'>{Intl.NumberFormat().format(wish.productId.price)} EGP</span></h6>
                                         </Link>
-                                        <button onClick={() => removeFromWishlist(wish.productId._id)} className='btn border-0  p-0 '><i className='fas fa-trash-can text-danger'></i> Remove </button>
+                                        <button onClick={() => removeFromWishlist(wish.productId._id)} className='btn border-0  p-0 mb-3'><i className='fas fa-trash-can text-danger'></i> Remove </button>
                                     </div>
-                                    <div>
+                                    <div className='d-flex flex-row-reverse'>
                                         {wish.productId.availableItems === 0
                                             ? <button className="btn text-white btn-success" disabled>Out Of Stock</button>
-                                            : <button onClick={() => addProductToCart(wish.productId._id)} className='btn btn-success btn-sm fw-bolder'>Add to cart</button>}
+                                            : <button onClick={() => addProductToCart(wish.productId._id)} className='btn btn-success fw-bolder'>Add to cart</button>}
                                     </div>
                                 </div>
                             </div>
