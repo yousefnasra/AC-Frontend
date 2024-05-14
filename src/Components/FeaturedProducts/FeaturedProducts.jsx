@@ -19,7 +19,7 @@ export default function FeaturedProducts() {
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage] = useState(8);
+  const [itemPerPage] = useState(10);
   const [maxPrice, setMaxPrice] = useState(200000);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedPower, setSelectedPower] = useState([]);
@@ -140,7 +140,7 @@ export default function FeaturedProducts() {
   return (
     <>
       <div className="container">
-        <div className="row justify-content-center justify-content-md-start justify-content-xl-center justify-content-xxl-start">
+        <div className="row justify-content-center justify-content-md-start justify-content-xl-center">
           <h2 className='my-4 text-center'>AIR CONDITIONERS</h2>
           <div className="filter d-flex justify-content-between align-items-center mt-2 mb-3">
             <input type='text' placeholder='Search' className='form-control w-100' onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }} />
