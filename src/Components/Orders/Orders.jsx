@@ -81,6 +81,7 @@ export default function Orders() {
                                     <div>
                                         <p className='fw-semibold'>Status: <span className='text-main fw-medium'>{order.status === "visa payed" ? "shipped" : order.status}</span></p>
                                         <p className='fw-semibold'>Payment: <span className="text-main fw-medium">{order.payment}</span></p>
+                                        <p className="fw-semibold">Total: <span className='text-main'>{Intl.NumberFormat().format(order.price)} EGP</span></p>
                                     </div>
                                 </div>
                                 <div className="d-md-flex justify-content-md-between align-items-md-center mt-md-2">
@@ -88,7 +89,6 @@ export default function Orders() {
                                         <h6 className="fw-semibold">Address: {order.address}</h6>
                                         <h6 className="fw-semibold">Phone: {order.phone}</h6>
                                     </div>
-                                    <h6 className="fw-semibold">Total: <span className='text-main'>{Intl.NumberFormat().format(order.price)} EGP</span></h6>
                                     <div className='d-flex flex-row-reverse'>
                                         {order.status !== "placed"
                                             ? ""
