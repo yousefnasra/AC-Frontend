@@ -45,7 +45,7 @@ export default function Orders() {
                 <title>Orders</title>
             </Helmet>
             <div className='container bg-main-light p-3'>
-                <h3 className='mb-4 py-2'>Orders Status </h3>
+                <h2 className='mb-4 py-2 fw-bold text-main'>Orders Status </h2>
                 {orders
                     ?
                     <div className="p-3">

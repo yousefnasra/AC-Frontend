@@ -3,6 +3,7 @@ import { CartContext } from '../../Context/CartContext'
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Loading from '../Loading'
+import toast from 'react-hot-toast';
 
 
 export default function Cart() {
@@ -37,6 +38,14 @@ export default function Cart() {
   async function getCart() {
     setIsLoading(true)
     let { data } = await getLoggedUserCart();
+    // check available items
+    data?.results.cart.products.forEach(product => {
+      if (product.quantity > product.productId.availableItems) {
+        product.quantity = 0
+        removeItem(product.productId.id);
+      }
+    });
+    // Calculate total price
     const sum = data?.results.cart.products.reduce((acc, item) => {
       const productPrice = item.productId.price;
       const quantity = item.quantity;
@@ -56,16 +65,19 @@ export default function Cart() {
       removeItem(id);
     } else {
       setIsLoading(true)
-      let { data } = await updateProductQuantity(id, quantity);
-      const sum = data?.results.cart.products.reduce((acc, item) => {
+      let response = await updateProductQuantity(id, quantity);
+      setIsLoading(false)
+      if (response?.response?.data.success === false) {
+        return toast.error(response?.response?.data.message, { className: "text-center font-sm" });
+      };
+      const sum = response?.data?.results.cart.products.reduce((acc, item) => {
         const productPrice = item.productId.price;
         const quantity = item.quantity;
         return acc + (productPrice * quantity);
       }, 0);
       setTotalPrice(sum)
-      setDataDetails(data)
-      setCartItemsNum(data?.results.cart.products.length)
-      setIsLoading(false)
+      setDataDetails(response?.data)
+      setCartItemsNum(response?.data?.results.cart.products.length)
     }
   }
   useEffect(() => { getCart() }, [])
@@ -76,7 +88,7 @@ export default function Cart() {
         <title>Cart</title>
       </Helmet>
       <div className="w-75 mx-auto bg-main-light p-3">
-        <h3 className='mb-4 py-2'>Shopping Cart </h3>
+        <h2 className='mb-4 py-2 fw-bold text-main'>Shopping Cart </h2>
         <>
           <h4 className='h6 text-center fw-bolder'>Number of Products : <span className='h6 text-main fw-bolder'>{dataDetails?.results.cart.products.length}</span></h4>
           <h4 className='h6 text-center fw-bolder mb-2'>Total Cart Price : <span className='h6 text-main fw-bolder'>{Intl.NumberFormat().format(totalPrice)} EGP</span></h4>

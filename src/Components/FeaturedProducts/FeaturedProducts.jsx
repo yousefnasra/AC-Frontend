@@ -33,8 +33,11 @@ export default function FeaturedProducts() {
       toast.success("Product added successflly to cart", {
         className: "text-center font-sm",
       });
+    } else if (response?.response.data.message === "jwt malformed") {
+      setCartItemsNum(0);
+      return toast.error("please login first", { className: "text-center font-sm" });
     } else {
-      toast.error("please login first", { className: "text-center font-sm" });
+      return toast.error(`${response.response.data.message}\ncheck your cart.`, { className: "text-center font-sm" });
     }
     setCartItemsNum(response?.data?.results.cart.products.length);
   }
@@ -141,7 +144,7 @@ export default function FeaturedProducts() {
     <>
       <div className="container">
         <div className="row justify-content-center justify-content-md-start justify-content-xl-center">
-          <h2 className='my-4 text-center'>AIR CONDITIONERS</h2>
+          <h2 className="my-4 text-center fw-bold text-main">AIR CONDITIONERS</h2>
           <div className="filter d-flex justify-content-between align-items-center mt-2 mb-3">
             <input type='text' placeholder='Search' className='form-control w-100' onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }} />
             {/* Tap */}
@@ -156,7 +159,7 @@ export default function FeaturedProducts() {
               </ul>
             </div>
           </div>
-          <p className="text-muted">{data?.length} of {totalItems} products</p>
+          <p className="text-muted">{data?.length} out of {totalItems} products</p>
           {data?.length === 0
             ? <div className="p-5 my-5 bg-main-light">
               <h3 className='text-center fw-bold h6'>No Products Found</h3>

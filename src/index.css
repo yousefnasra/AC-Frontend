@@ -104,7 +104,7 @@ a:hover {
 }
 
 .res {
-  margin-top: 75px;
+  margin-top: 76.5px;
   min-height: 80vh;
   display: flex;
   flex-wrap: wrap;
@@ -129,3 +129,9 @@ a:hover {
   color: #fafbfb;
 }
 
+.slick-track div {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}

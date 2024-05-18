@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import toast from 'react-hot-toast';
 
 export default function Register() {
 
@@ -22,7 +23,9 @@ export default function Register() {
 
     if (data.success === true) {
       setIsLoading(false)
-      navigate('/login');
+      toast.success("Account Created Successflly", {
+        className: "text-center font-sm",});
+      navigate('/checkemail');
     }
 
   }

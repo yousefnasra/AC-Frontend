@@ -3,7 +3,7 @@ import React from "react";
 export default function ContactUs() {
   return (
     <div className="container py-5">
-      <h1 className="mb-5 text-center  ">Contact Us</h1>
+      <h2 className="mb-5 text-center fw-bold text-main">Contact Us</h2>
       <p className=" my-5 col-12 col-md-6 offset-md-3 text-center text-wrap">
         We're always here to help you with any queries or assistance you might
         need. Feel free to get in touch with us using the information below:

@@ -16,18 +16,27 @@ export default function Address() {
 
     async function addressSubmit(values) {
         setIsLoading(true)
-        let { data } = await onlinePayment(values);
-        if (data.success && values.payment === "visa") {
-            setIsLoading(false)
-            window.location.href = data.results.url;
-        } else if (data.success && values.payment === "cash") {
-            setIsLoading(false)
-            toast.success("order submitted successflly", {
+        let response = await onlinePayment(values);
+        console.log(response);
+        if (response?.response?.data.success === false) {
+            setIsLoading(false);
+            toast.error(`${response.response.data.message}\n update your cart`, {
                 className: "text-center font-sm",
             });
-            navigate('/allorders');
+            navigate('/cart');
+        } else {
+            if (response?.data.success && values.payment === "visa") {
+                setIsLoading(false)
+                window.location.href = response.data.results.url;
+            } else if (response.data.success && values.payment === "cash") {
+                setIsLoading(false)
+                toast.success("order submitted successflly", {
+                    className: "text-center font-sm",
+                });
+                navigate('/allorders');
+            }
+            setIsLoading(false)
         }
-        setIsLoading(false)
     }
 
     let validationSchema = Yup.object({

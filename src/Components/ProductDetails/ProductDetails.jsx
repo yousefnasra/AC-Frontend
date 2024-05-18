@@ -62,8 +62,11 @@ export default function ProductDetails() {
       toast.success("Product added successflly to cart", {
         className: "text-center font-sm",
       });
+    } else if (response?.response.data.message === "jwt malformed") {
+      setCartItemsNum(0);
+      return toast.error("please login first", { className: "text-center font-sm" });
     } else {
-      toast.error("please login first", { className: "text-center font-sm" });
+      return toast.error(`${response.response.data.message}\ncheck your cart.`, { className: "text-center font-sm" });
     }
     setCartItemsNum(response?.data?.results.cart.products.length);
   }

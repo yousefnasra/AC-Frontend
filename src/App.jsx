@@ -18,6 +18,8 @@ import WishListContextProvider from './Context/WishListContext'
 import WishList from './Components/WishList/WishList'
 import ResetPassword from './Components/ResetPassword/ResetPassword'
 import VerifyCode from './Components/VerifyCode/VerifyCode'
+import CheckEmail from './Components/CheckEmail/CheckEmail'
+
 
 const routes = createBrowserRouter([
   {
@@ -33,6 +35,7 @@ const routes = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'resetpassword', element: <ResetPassword /> },
       { path: 'verifycode', element: <VerifyCode /> },
+      { path: 'checkemail', element: <CheckEmail /> },
       { path: '*', element: <NotFound /> }
     ]
   }

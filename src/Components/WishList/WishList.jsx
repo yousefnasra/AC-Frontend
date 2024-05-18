@@ -41,14 +41,16 @@ export default function WishList() {
     async function addProductToCart(productId) {
         setLoading(true)
         let response = await addToCart(productId);
+        setLoading(false);
         if (response?.data?.success) {
             removeFromWishlist(productId);
+        } else if (response?.response.data.message === "jwt malformed") {
+            setCartItemsNum(0);
+            return toast.error("please login first", { className: "text-center font-sm" });
         } else {
-            toast.error("something went wrong!",
-                { className: 'text-center font-sm' });
+            return toast.error(`${response.response.data.message}\ncheck your cart.`, { className: "text-center font-sm" });
         }
         setCartItemsNum(response?.data?.results.cart.products.length)
-        setLoading(false);
     }
 
     return (
@@ -57,7 +59,7 @@ export default function WishList() {
                 <title>Wish List</title>
             </Helmet>
             <div className="w-75 mx-auto bg-main-light p-3">
-                <h3 className='my-4 py-2'>My Wish List </h3>
+                <h2 className='my-4 py-2 fw-bold text-main'>My Wishlist</h2>
                 {isLoading
                     ? <Loading></Loading>
                     : data?.data.results.wishlist.products.map((wish, index) =>
