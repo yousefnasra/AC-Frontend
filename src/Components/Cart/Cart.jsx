@@ -91,7 +91,7 @@ export default function Cart() {
         <h2 className='mb-4 py-2 fw-bold text-main'>Shopping Cart </h2>
         <>
           <h4 className='h6 text-center fw-bolder'>Number of Products : <span className='h6 text-main fw-bolder'>{dataDetails?.results.cart.products.length}</span></h4>
-          <h4 className='h6 text-center fw-bolder mb-2'>Total Cart Price : <span className='h6 text-main fw-bolder'>{Intl.NumberFormat().format(totalPrice)} EGP</span></h4>
+          <h4 className='h6 text-center fw-bolder mb-2'>Total Price : <span className='h6 text-main fw-bolder'>{Intl.NumberFormat().format(totalPrice)} EGP</span></h4>
           {dataDetails && dataDetails?.results.cart.products.length !== 0 ?
             <div className='d-flex flex-row-reverse border-bottom border-top'>
               <button onClick={() => clearCart()} className='btn btn-danger my-2'>Clear Cart</button>
