@@ -3,7 +3,6 @@ function ScrollUp() {
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
-    console.log("up");
     function handleScroll() {
       setShowButton(window.scrollY > 300);
     }
