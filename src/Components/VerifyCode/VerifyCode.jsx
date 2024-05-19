@@ -38,13 +38,11 @@ export default function VerifyCode() {
 
     }
 
-    const resetCodeRegExp = /^[0-9]{6}$/;
-
     let validationSchema = Yup.object({
         email: Yup.string().email('Email is invalid').required('Email is required'),
         password: Yup.string().matches(/^[A-Z][a-z0-9]{5,11}$/, 'Password start with uppercase , minlength is 6 and maxlength is 12').required('Password is required'),
         confirmPassword: Yup.string().oneOf([Yup.ref("password")], "password and confirmPassword does not match").required('confirmPassword is required'),
-        forgetCode: Yup.string().matches(resetCodeRegExp, 'Reset code is invalid').required('Reset code is required')
+        forgetCode: Yup.string().length(6, "Invalid Reset Code").required('Reset code is required')
     })
 
     const formik = useFormik({
