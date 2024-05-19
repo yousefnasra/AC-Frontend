@@ -3,6 +3,7 @@ import Navbar from './../Navbar/Navbar';
 import { Outlet } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import { Offline } from "react-detect-offline";
+import ScrollUp from "../ScrollUp/ScrollUp";
 
 export default function Layout() {
   return (
@@ -18,7 +19,7 @@ export default function Layout() {
           <i className="fa-solid fa-wifi me-1"></i> You are offline now
         </span>
       </Offline>
-      
+      <ScrollUp />
       <Footer />
     </>
   )
