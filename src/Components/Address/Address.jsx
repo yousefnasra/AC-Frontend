@@ -17,7 +17,6 @@ export default function Address() {
     async function addressSubmit(values) {
         setIsLoading(true)
         let response = await onlinePayment(values);
-        console.log(response);
         if (response?.response?.data.success === false) {
             setIsLoading(false);
             toast.error(`${response.response.data.message}\n update your cart`, {

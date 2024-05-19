@@ -1,25 +1,34 @@
 
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
+import toast from 'react-hot-toast'
+import { UserContext } from '../../Context/UserContext'
 
 export default function VerifyCode() {
 
     let navigate = useNavigate();
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    let { isBlocked, setIsBlocked } = useContext(UserContext);
 
     async function verifyCodeSubmit(values) {
 
         setIsLoading(true)
-
+        if (isBlocked > 4) {
+            setIsLoading(false)
+            toast.error("something went wrong, try again",
+                { className: 'text-center font-sm' });
+            return navigate('/resetpassword');
+        }
         let { data } = await axios.patch(`https://ac-backend-zeta.vercel.app/auth/resetPassword`, values)
             .catch((err) => {
                 setIsLoading(false)
                 setError(err.response.data.message)
+                setIsBlocked(isBlocked + 1);
             })
 
         if (data.success === true) {

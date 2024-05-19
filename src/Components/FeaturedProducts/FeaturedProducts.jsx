@@ -107,14 +107,14 @@ export default function FeaturedProducts() {
     product.price <= maxPrice);
 
   async function getCart() {
-    try {
-      let { data } = await getLoggedUserCart();
-      if (data?.success) {
-        setCartItemsNum(data?.results.cart.products.length);
+      if (localStorage.getItem('userToken') !== null) {
+        let { data } = await getLoggedUserCart();
+        if (data?.success) {
+          setCartItemsNum(data?.results.cart.products.length);
+        }
+      }else{
+        setCartItemsNum(0);
       }
-    } catch (error) {
-      setCartItemsNum(0);
-    }
   }
 
   let headers = {
@@ -122,7 +122,7 @@ export default function FeaturedProducts() {
   };
 
   async function getLoggedWishlist() {
-    try {
+    if (localStorage.getItem('userToken') !== null) {
       let { data } = await axios.get(
         `https://ac-backend-zeta.vercel.app/wishlist`,
         {
@@ -130,8 +130,8 @@ export default function FeaturedProducts() {
         }
       );
       setIsWished(data?.results?.wishlist.products.map((item) => item.productId.id));
-    } catch (error) {
-
+    } else {
+      setIsWished([]);
     }
   }
 

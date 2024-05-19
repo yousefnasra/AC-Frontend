@@ -10,6 +10,9 @@ import App from './App';
 import UserContextProvider from './Context/UserContext';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+console.log = () => { };
+console.error = () => { };
+console.warn = () => { };
 const root = ReactDOM.createRoot(document.getElementById('root'));
 let queryClient = new QueryClient();
 root.render(

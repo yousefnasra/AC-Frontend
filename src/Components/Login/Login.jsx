@@ -5,10 +5,11 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../../Context/UserContext'
 import { Helmet } from 'react-helmet'
+import toast from 'react-hot-toast'
 
 export default function Login() {
 
-  let { setUserToken } = useContext(UserContext);
+  let { setUserToken, isBlocked, setIsBlocked } = useContext(UserContext);
   let navigate = useNavigate();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -16,11 +17,17 @@ export default function Login() {
   async function loginSubmit(values) {
 
     setIsLoading(true)
-
+    if (isBlocked > 4) {
+      setIsLoading(false)
+      toast.error("something went wrong, update your password",
+        { className: 'text-center font-sm' });
+      return navigate('/resetpassword');
+    }
     let { data } = await axios.post(`https://ac-backend-zeta.vercel.app/auth/login`, values)
       .catch((err) => {
         setIsLoading(false)
         setError(err.response.data.message)
+        setIsBlocked(isBlocked + 1);
       })
 
     if (data.success === true) {
